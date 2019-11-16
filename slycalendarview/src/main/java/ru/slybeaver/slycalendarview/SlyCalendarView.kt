@@ -3,8 +3,8 @@ package ru.slybeaver.slycalendarview
 import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.Context
-import android.support.v4.content.ContextCompat
-import android.support.v4.view.ViewPager
+import androidx.core.content.ContextCompat
+import androidx.viewpager.widget.ViewPager
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout

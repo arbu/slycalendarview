@@ -2,7 +2,7 @@ package ru.slybeaver.truecalendar
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.widget.DatePicker
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*

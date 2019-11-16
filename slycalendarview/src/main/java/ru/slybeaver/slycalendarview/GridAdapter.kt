@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,7 +28,7 @@ class GridAdapter(
     private var monthlyDates = ArrayList<Date>()
     private val inflater: LayoutInflater = LayoutInflater.from(context)
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val dateCal = Calendar.getInstance()
         dateCal.time = monthlyDates[position]
         var calendarStart: Calendar? = null

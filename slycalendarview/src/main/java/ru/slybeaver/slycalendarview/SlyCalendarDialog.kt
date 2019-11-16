@@ -2,7 +2,7 @@ package ru.slybeaver.slycalendarview
 
 import android.app.AlertDialog
 import android.content.Context
-import android.support.annotation.StyleRes
+import androidx.annotation.StyleRes
 import android.view.LayoutInflater
 import ru.slybeaver.slycalendarview.listeners.DialogCompleteListener
 import java.util.*
@@ -24,7 +24,7 @@ class SlyCalendarDialog @JvmOverloads constructor(
     private val slyCalendarData = SlyCalendarData()
 
     init {
-        this.window.attributes.windowAnimations = R.style.DialogAnimation
+        this.window?.attributes?.windowAnimations = R.style.DialogAnimation
         val inflater = LayoutInflater.from(context)
         val calendarView = inflater.inflate(R.layout.slycalendar_main, null) as SlyCalendarView
         calendarView.setSlyCalendarData(slyCalendarData)
