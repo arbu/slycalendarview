@@ -3,11 +3,9 @@ package ru.slybeaver.truecalendar
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.slybeaver.slycalendarview.SlyCalendarDialog
-import ru.slybeaver.slycalendarview.SlyCalendarDialog.Callback
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -19,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val callback: Callback = object : Callback {
+        val callback: SlyCalendarDialog.Callback = object : SlyCalendarDialog.Callback {
             override fun onCancelled() {}
             override fun onDataSelected(
                     firstDate: Calendar?,
@@ -45,11 +43,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnShowCalendar.setOnClickListener {
-            SlyCalendarDialog()
+
+            SlyCalendarDialog(this, callback)
                     .setSingle(false)
                     //.setFirstMonday(false)
-                    .setCallback(callback)
-                    .show(supportFragmentManager, "TAG_SLYCALENDAR")
+                    .show()
         }
 
         val c = Calendar.getInstance()

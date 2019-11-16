@@ -1,24 +1,30 @@
 package ru.slybeaver.slycalendarview
 
-import android.os.Bundle
-import android.support.v4.app.DialogFragment
+import android.app.AlertDialog
+import android.content.Context
+import android.support.annotation.StyleRes
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import ru.slybeaver.slycalendarview.listeners.DialogCompleteListener
 import java.util.*
 
 /**
  * Created by Andreu on 16.11.2019.
  */
-class SlyCalendarDialog : DialogFragment(), DialogCompleteListener {
+class SlyCalendarDialog @JvmOverloads constructor(
+        context: Context,
+        private var callback: Callback? = null,
+        @StyleRes themeResId: Int = 0
+): AlertDialog(context, themeResId), DialogCompleteListener {
 
     private val slyCalendarData = SlyCalendarData()
-    private var callback: Callback? = null
 
-    fun setStartDate(startDate: Date?): SlyCalendarDialog {
-        slyCalendarData.selectedStartDate = startDate
-        return this
+    init {
+        val inflater = LayoutInflater.from(context)
+        val calendarView = inflater.inflate(R.layout.slycalendar_main, null) as SlyCalendarView
+        calendarView.setSlyCalendarData(slyCalendarData)
+        calendarView.setCallback(callback)
+        calendarView.setCompleteListener(this)
+        setView(calendarView)
     }
 
     fun setEndDate(endDate: Date?): SlyCalendarDialog {
@@ -37,19 +43,15 @@ class SlyCalendarDialog : DialogFragment(), DialogCompleteListener {
         return this
     }
 
-    fun setCallback(callback: Callback?): SlyCalendarDialog {
-        this.callback = callback
-        return this
-    }
+    //TODO callback remove, add listener with lambda
+//    fun setCallback(callback: Callback?): SlyCalendarDialog {
+//        this.callback = callback
+//        return this
+//    }
 
     fun setTimeTheme(themeResource: Int?): SlyCalendarDialog {
         slyCalendarData.timeTheme = themeResource
         return this
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL, R.style.SlyCalendarDialogStyle)
     }
 
     fun getCalendarFirstDate(): Date? {
@@ -58,14 +60,6 @@ class SlyCalendarDialog : DialogFragment(), DialogCompleteListener {
 
     fun getCalendarSecondDate(): Date? {
         return slyCalendarData.selectedEndDate
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val calendarView = activity!!.layoutInflater.inflate(R.layout.slycalendar_main, container) as SlyCalendarView
-        calendarView.setSlyCalendarData(slyCalendarData)
-        calendarView.setCallback(callback)
-        calendarView.setCompleteListener(this)
-        return calendarView
     }
 
     override fun complete() {
