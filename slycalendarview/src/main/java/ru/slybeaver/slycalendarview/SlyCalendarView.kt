@@ -78,7 +78,6 @@ class SlyCalendarView @JvmOverloads constructor(
 
     private fun showCalendar() {
         paintCalendar()
-        showTime()
         txtCancel.setOnClickListener {
             if (callback != null) {
                 callback?.onCancelled()
@@ -135,6 +134,8 @@ class SlyCalendarView @JvmOverloads constructor(
             vpager.currentItem = vpager.currentItem + 1
         }
         if (type == DialogType.DATE_TIME) {
+            showTime()
+
             txtTime.visibility = View.VISIBLE
             txtTime.setOnClickListener {
                 var style = R.style.SlyCalendarTimeDialogTheme

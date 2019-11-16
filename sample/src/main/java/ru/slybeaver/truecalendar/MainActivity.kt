@@ -3,6 +3,7 @@ package ru.slybeaver.truecalendar
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.widget.DatePicker
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.slybeaver.slycalendarview.SlyCalendarDialog
@@ -30,12 +31,12 @@ class MainActivity : AppCompatActivity() {
                         firstDate[Calendar.HOUR_OF_DAY] = hours
                         firstDate[Calendar.MINUTE] = minutes
 
-                        toast(SimpleDateFormat(getString(R.string.timeFormat), Locale.getDefault()).format(firstDate.time))
+                        toast(SimpleDateFormat(getString(R.string.dateFormat), Locale.getDefault()).format(firstDate.time))
                     } else {
                         toast(getString(
                                 R.string.period,
                                 SimpleDateFormat(getString(R.string.dateFormat), Locale.getDefault()).format(firstDate.time),
-                                SimpleDateFormat(getString(R.string.timeFormat), Locale.getDefault()).format(secondDate.time)
+                                SimpleDateFormat(getString(R.string.dateFormat), Locale.getDefault()).format(secondDate.time)
                         ))
                     }
                 }
@@ -62,6 +63,8 @@ class MainActivity : AppCompatActivity() {
             }, year, month, day)
             dpd.show()
         }
+
+        val d = DatePicker(this)
     }
 
     fun toast(msg: String) {
