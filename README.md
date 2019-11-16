@@ -45,66 +45,45 @@ dependencies {
 ```
 
 Or show calendar as dialog:
-```java
-new SlyCalendarDialog()
+```kotlin
+SlyCalendarDialog(context, listener)
         .setSingle(false)
-        .setCallback(listener)
-        .show(getSupportFragmentManager(), "TAG_SLYCALENDAR");
+        .show();
 ```
 
 2. Set a `SlyCalendarDialog.Callback` when you need it
-```java 
-public class MainActivity extends AppCompatActivity implements SlyCalendarDialog.Callback {
+```kotlin 
+class MainActivity : AppCompatActivity(), SlyCalendarDialog.Callback {
 ...
 
-@Override
-    public void onCancelled() {
+    override fun onCancelled() {
         //Nothing
     }
 
-    @Override
-    public void onDataSelected(Calendar firstDate, Calendar secondDate, int hours, int minutes) {
-        if (firstDate != null) {
-            if (secondDate == null) {
-                firstDate.set(Calendar.HOUR_OF_DAY, hours);
-                firstDate.set(Calendar.MINUTE, minutes);
-                Toast.makeText(
-                        this,
-                        new SimpleDateFormat(getString(R.string.timeFormat), Locale.getDefault()).format(firstDate.getTime()),
-                        Toast.LENGTH_LONG
+    override fun onDataSelected(
+            firstDate: Calendar?,
+            secondDate: Calendar?,
+            hours: Int,
+            minutes: Int
+    ) {
 
-                ).show();
-            } else {
-                Toast.makeText(
-                        this,
-                        getString(
-                                R.string.period,
-                                new SimpleDateFormat(getString(R.string.dateFormat), Locale.getDefault()).format(firstDate.getTime()),
-                                new SimpleDateFormat(getString(R.string.timeFormat), Locale.getDefault()).format(secondDate.getTime())
-                        ),
-                        Toast.LENGTH_LONG
-
-                ).show();
-            }
-        }
     }
-
 }
 ```
 
 Or 
-```java
-SlyCalendarDialog.Callback callback = new SlyCalendarDialog.Callback() {
-    @Override
-    public void onCancelled() {
-        
-    }
+```kotlin
+val callback: SlyCalendarDialog.Callback = object : SlyCalendarDialog.Callback {
+            override fun onCancelled() {}
+            override fun onDataSelected(
+                    firstDate: Calendar?,
+                    secondDate: Calendar?,
+                    hours: Int,
+                    minutes: Int
+            ) {
 
-    @Override
-    public void onDataSelected(Calendar firstDate, Calendar secondDate, int hours, int minutes) {
-
-    }
-};
+            }
+        }
 ```
 
 ## Customization
@@ -122,14 +101,13 @@ Set colors:
         />
 ```
 or 
-```java
-new SlyCalendarDialog()
+```kotlin
+SlyCalendarDialog(context, listener)
         .setSingle(false)
-        .setCallback(listener)
         .setBackgroundColor(Color.parseColor("#ff0000"))
         .setSelectedTextColor(Color.parseColor("#ffff00"))
         .setSelectedColor(Color.parseColor("#0000ff"))
-        .show(getSupportFragmentManager(), "TAG_SLYCALENDAR");
+        .show()
 ```
 
 Parameters:
