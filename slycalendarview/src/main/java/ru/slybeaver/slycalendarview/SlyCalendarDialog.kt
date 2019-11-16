@@ -10,19 +10,26 @@ import java.util.*
 /**
  * Created by Andreu on 16.11.2019.
  */
+enum class DialogType {
+    DATE, DATE_TIME
+}
+
 class SlyCalendarDialog @JvmOverloads constructor(
         context: Context,
         private var callback: Callback? = null,
+        type: DialogType = DialogType.DATE,
         @StyleRes themeResId: Int = 0
 ): AlertDialog(context, themeResId), DialogCompleteListener {
 
     private val slyCalendarData = SlyCalendarData()
 
     init {
+        this.window.attributes.windowAnimations = R.style.DialogAnimation
         val inflater = LayoutInflater.from(context)
         val calendarView = inflater.inflate(R.layout.slycalendar_main, null) as SlyCalendarView
         calendarView.setSlyCalendarData(slyCalendarData)
         calendarView.setCallback(callback)
+        calendarView.setType(type)
         calendarView.setCompleteListener(this)
         setView(calendarView)
     }

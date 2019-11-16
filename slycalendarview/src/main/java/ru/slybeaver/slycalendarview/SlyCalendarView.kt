@@ -26,11 +26,16 @@ class SlyCalendarView @JvmOverloads constructor(
 ) : FrameLayout(context, attrs, defStyle), DateSelectListener {
     private var slyCalendarData: SlyCalendarData? = null
     private var callback: Callback? = null
+    private var type: DialogType = DialogType.DATE
     private var completeListener: DialogCompleteListener? = null
     private var attrs: AttributeSet? = null
 
     fun setCallback(callback: Callback?) {
         this.callback = callback
+    }
+
+    fun setType(type: DialogType) {
+        this.type = type
     }
 
     fun setCompleteListener(completeListener: DialogCompleteListener?) {
@@ -129,18 +134,22 @@ class SlyCalendarView @JvmOverloads constructor(
             val vpager: ViewPager = findViewById(R.id.content)
             vpager.currentItem = vpager.currentItem + 1
         }
-        txtTime.setOnClickListener {
-            var style = R.style.SlyCalendarTimeDialogTheme
-            if (slyCalendarData?.timeTheme != null) {
-                style = slyCalendarData?.timeTheme!!
+        if (type == DialogType.DATE_TIME) {
+            txtTime.visibility = View.VISIBLE
+            txtTime.setOnClickListener {
+                var style = R.style.SlyCalendarTimeDialogTheme
+                if (slyCalendarData?.timeTheme != null) {
+                    style = slyCalendarData?.timeTheme!!
+                }
+                val tpd = TimePickerDialog(context, style, OnTimeSetListener { view, hourOfDay, minute ->
+                    slyCalendarData?.selectedHour = hourOfDay
+                    slyCalendarData?.selectedMinutes = minute
+                    showTime()
+                }, slyCalendarData!!.selectedHour, slyCalendarData!!.selectedMinutes, true)
+                tpd.show()
             }
-            val tpd = TimePickerDialog(context, style, OnTimeSetListener { view, hourOfDay, minute ->
-                slyCalendarData?.selectedHour = hourOfDay
-                slyCalendarData?.selectedMinutes = minute
-                showTime()
-            }, slyCalendarData!!.selectedHour, slyCalendarData!!.selectedMinutes, true)
-            tpd.show()
         }
+
         val pager: ViewPager = findViewById(R.id.content)
         pager.adapter!!.notifyDataSetChanged()
         pager.invalidate()

@@ -10,4 +10,9 @@
         <item name="colorAccent">@color/slycalendar_defHeaderColor</item>
         <item name="colorControlNormal">@color/slycalendar_defHeaderColor</item>
     </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+    </style>
 </resources>
