@@ -3,18 +3,22 @@ package ru.slybeaver.slycalendarview
 import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.Context
-import androidx.core.content.ContextCompat
-import androidx.viewpager.widget.ViewPager
 import android.util.AttributeSet
+import android.util.DisplayMetrics
+import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
-import kotlinx.android.synthetic.main.slycalendar_frame.view.*
+import androidx.core.content.ContextCompat
+import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
+import kotlinx.android.synthetic.main.slycalendar_frame_new.view.*
 import ru.slybeaver.slycalendarview.SlyCalendarDialog.Callback
 import ru.slybeaver.slycalendarview.listeners.DateSelectListener
 import ru.slybeaver.slycalendarview.listeners.DialogCompleteListener
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 /**
  * Created by Andreu on 16.11.2019.
@@ -48,8 +52,43 @@ class SlyCalendarView @JvmOverloads constructor(
         showCalendar()
     }
 
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+
+//        val desiredWidth = suggestedMinimumWidth + paddingLeft + paddingRight
+//        val desiredHeight = suggestedMinimumHeight + paddingTop + paddingBottom
+//
+//        setMeasuredDimension(measureDimension(desiredWidth, widthMeasureSpec),
+//                measureDimension(desiredHeight, heightMeasureSpec));
+
+        val metrics = DisplayMetrics()
+
+        val newWidth = (widthMeasureSpec * 0.8).toInt()
+        val newHeight = heightMeasureSpec
+
+        setMeasuredDimension(newWidth, heightMeasureSpec)
+    }
+
+    private fun measureDimension(desiredSize: Int, measureSpec: Int): Int {
+        var result: Int
+        val specMode = MeasureSpec.getMode(measureSpec)
+        val specSize = MeasureSpec.getSize(measureSpec)
+        if (specMode == MeasureSpec.EXACTLY) {
+            result = specSize
+        } else {
+            result = desiredSize
+            if (specMode == MeasureSpec.AT_MOST) {
+                result = Math.min(result, specSize)
+            }
+        }
+        if (result < desiredSize) {
+            Log.e("CalendarView", "The view is too small, the content might get cut")
+        }
+        return result
+    }
+
     private fun init(attrs: AttributeSet?, defStyle: Int) {
-        View.inflate(context, R.layout.slycalendar_frame, this)
+        View.inflate(context, R.layout.slycalendar_frame_new, this)
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.SlyCalendarView, defStyle, 0)
         if (slyCalendarData?.backgroundColor == null) {
             slyCalendarData?.backgroundColor = typedArray.getColor(R.styleable.SlyCalendarView_backgroundColor, ContextCompat.getColor(context, R.color.slycalendar_defBackgroundColor))
@@ -70,9 +109,9 @@ class SlyCalendarView @JvmOverloads constructor(
             slyCalendarData?.selectedTextColor = typedArray.getColor(R.styleable.SlyCalendarView_selectedTextColor, ContextCompat.getColor(context, R.color.slycalendar_defSelectedTextColor))
         }
         typedArray.recycle()
-        val pager: ViewPager = findViewById(R.id.content)
-        pager.adapter = MonthPagerAdapter(slyCalendarData!!, this)
-        pager.currentItem = pager.adapter!!.count / 2
+        val pager: ViewPager2 = findViewById(R.id.content)
+        pager.adapter = MonthPagerAdapterNew(slyCalendarData!!, this)
+        //pager.currentItem = pager.adapter!!.count / 2
         showCalendar()
     }
 
@@ -151,7 +190,7 @@ class SlyCalendarView @JvmOverloads constructor(
             }
         }
 
-        val pager: ViewPager = findViewById(R.id.content)
+        val pager: ViewPager2 = findViewById(R.id.content)
         pager.adapter!!.notifyDataSetChanged()
         pager.invalidate()
     }

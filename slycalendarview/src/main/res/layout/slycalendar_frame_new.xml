@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainFrame"
+    android:layout_width="match_parent"
+    android:layout_height="400dp"
+    android:background="@color/slycalendar_defBackgroundColor">
+
+    <LinearLayout
+        android:id="@+id/headerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/slycalendar_defHeaderColor"
+        android:orientation="vertical"
+        android:paddingTop="16dp"
+        android:paddingStart="24dp"
+        android:paddingBottom="16dp"
+        android:paddingEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/txtYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:alpha="0.5"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/slycalendar_defHeaderTextColor"
+            android:textSize="14sp"
+            tools:text="2019" />
+
+        <TextView
+            android:id="@+id/txtSelectedPeriod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/slycalendar_defHeaderTextColor"
+            android:textSize="30sp"
+            android:singleLine="true"
+            android:maxLines="1"
+            tools:text="FRI, 13 — SUN, 15 MAY"
+            />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/pagerContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headerView"
+        app:layout_constraintBottom_toTopOf="@+id/txtSave">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top">
+
+            <ImageView
+                android:id="@+id/btnMonthPrev"
+                style="@style/SlyCalendarViewMonthChangeButtons"
+                android:contentDescription="@string/slycalendar_prev"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/slycalendar_chevron_left"
+                tools:ignore="VectorDrawableCompat" />
+
+            <ImageView
+                android:id="@+id/btnMonthNext"
+                style="@style/SlyCalendarViewMonthChangeButtons"
+                android:contentDescription="@string/slycalendar_next"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/slycalendar_chevron_right"
+                tools:ignore="VectorDrawableCompat" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </androidx.viewpager2.widget.ViewPager2>
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/txtTime"
+        style="@style/SlyCalendarViewBottomButtons"
+        android:textColor="@color/slycalendar_defHeaderColor"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="12:00"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/txtCancel"
+        style="@style/SlyCalendarViewBottomButtons"
+        android:text="@string/slycalendar_cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/txtSave" />
+
+    <TextView
+        android:id="@+id/txtSave"
+        style="@style/SlyCalendarViewBottomButtons"
+        android:text="@string/slycalendar_save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

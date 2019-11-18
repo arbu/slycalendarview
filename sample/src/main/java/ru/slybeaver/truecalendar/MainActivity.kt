@@ -43,12 +43,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        btnShowCalendar.setOnClickListener {
+        val dialog = SlyCalendarDialog(this, callback)
+                .setSingle(false)
+                //.setFirstMonday(false)
 
-            SlyCalendarDialog(this, callback)
-                    .setSingle(false)
-                    //.setFirstMonday(false)
-                    .show()
+        btnShowCalendar.setOnClickListener {
+            dialog.show()
         }
 
         val c = Calendar.getInstance()

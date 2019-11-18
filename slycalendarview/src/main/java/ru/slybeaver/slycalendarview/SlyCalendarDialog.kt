@@ -31,6 +31,13 @@ class SlyCalendarDialog @JvmOverloads constructor(
         calendarView.setCallback(callback)
         calendarView.setType(type)
         calendarView.setCompleteListener(this)
+
+        //val calendarView = inflater.inflate(R.layout.slycalendar_main, null)
+//        calendarView.setSlyCalendarData(slyCalendarData)
+//        calendarView.setCallback(callback)
+//        calendarView.setType(type)
+//        calendarView.setCompleteListener(this)
+
         setView(calendarView)
     }
 

@@ -15,4 +15,23 @@
         <item name="android:windowEnterAnimation">@anim/fade_in</item>
         <item name="android:windowExitAnimation">@anim/fade_out</item>
     </style>
+
+    <style name="SlyCalendarViewMonthChangeButtons">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="SlyCalendarViewBottomButtons">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">36dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/slycalendar_defTextColor</item>
+    </style>
 </resources>
